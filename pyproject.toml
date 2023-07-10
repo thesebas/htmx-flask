@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "htmx-flask"
+version = "0.1.0"
+description = ""
+authors = ["thesebas <thesebas@thesebas.net>"]
+readme = "README.md"
+# packages = [{include = "htmx_flask"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Flask = "^2.3.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
