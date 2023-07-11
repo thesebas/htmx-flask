@@ -33,14 +33,10 @@ def create_todo():
 @app.route("/todos-done/<id>", methods=["PUT"])
 def mark_todo(id):
     global todos
-
     isdone = not request.form.get("done") == "False"
-    print(isdone)
-    
     todos = [item if item.id != id else item.check(not isdone) for item in todos]
-    print(todos)
     return render_template("list_items.html", todos=todos)
 
 
 if __name__ == "__main__":
-    app.run()
+    print("run with `flask run --reload` or somth")
