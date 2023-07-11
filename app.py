@@ -1,6 +1,19 @@
 from flask import Flask, request, stream_template, render_template
+from dataclasses import dataclass, field
+from datetime import datetime
 
 app = Flask(__name__)
+
+
+@dataclass
+class ToDoItems:
+    text: str
+    id: str = field(default_factory=lambda: datetime.now().isoformat())
+    done: bool = field(default=False)
+
+    def check(self, state):
+        return ToDoItems(text=self.text, id=self.id, done=state)
+
 
 todos = []
 
@@ -12,8 +25,20 @@ def main():
 
 @app.route("/todos", methods=["POST"])
 def create_todo():
-    print(request.form)
-    todos.append(request.form.get("toadd"))
+    item = ToDoItems(text=request.form.get("toadd"))
+    todos.append(item)
+    return render_template("list_items.html", todos=todos)
+
+
+@app.route("/todos-done/<id>", methods=["PUT"])
+def mark_todo(id):
+    global todos
+
+    isdone = not request.form.get("done") == "False"
+    print(isdone)
+    
+    todos = [item if item.id != id else item.check(not isdone) for item in todos]
+    print(todos)
     return render_template("list_items.html", todos=todos)
 
 

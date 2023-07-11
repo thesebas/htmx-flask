@@ -1,5 +1,15 @@
-{% for value in todos %}
+{% for item in todos %}
 
-<li>{{ value }}</li>
+<li style="text-decoration: {{ 'line-through' if item.done else 'none' }};">
+    <input 
+    type="checkbox" 
+    value="{{item.done}}" 
+    {{'checked' if item.done}}
+    hx-put="/todos-done/{{item.id}}" 
+    name="done" 
+    hx-target="#list"
+    hx-params="done"
+    > {{ item.text }}
+</li>
 
 {% endfor %}
