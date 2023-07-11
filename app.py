@@ -39,4 +39,4 @@ def mark_todo(id):
 
 
 if __name__ == "__main__":
-    print("run with `flask run --reload` or somth")
+    print("run with `flask -A app:app run --reload` or `uvicorn app:app --reload --interface wsgi` or somth")
